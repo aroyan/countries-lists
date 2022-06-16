@@ -1,7 +1,11 @@
-import { Center } from "@chakra-ui/react";
+import Navbar from "./components/Navbar";
 
 function App() {
-  return <Center h="100vh">Hello</Center>;
+  return (
+    <>
+      <Navbar />
+    </>
+  );
 }
 
 export default App;

@@ -5,6 +5,7 @@
 ## Detail Country Page
 
 > Base URL [GET /name/:name](https://restcountries.com/v3.1/name/{name})
+> Base URL [GET /code/:cca3](https://restcountries.com/v3.1/code/{cca3})
 
 - [ ] Flag image URL
 - [ ] Name

@@ -13,8 +13,9 @@ export default function ThemeButton() {
       bg={"none"}
       _hover={{ bg: "none" }}
       _active={{ bg: "none" }}
-      fontSize="1rem"
+      fontSize={{ base: "12px", md: "1rem" }}
       fontWeight="regular"
+      p="0"
     >
       {text}
     </Button>

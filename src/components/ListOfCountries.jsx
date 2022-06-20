@@ -20,7 +20,7 @@ const ListOfCountries = ({ cca3 }) => {
       <Flex wrap="wrap" gap="1rem" align="center" justify="center">
         {data?.map((item, index) => {
           return (
-            <Link to={`/country/${cca3}`}>
+            <Link to={`/country/${item.cca3}`}>
               <PreviewCard key={index} item={item} />
             </Link>
           );

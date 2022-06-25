@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import axios from "axios";
 import { Image } from "@chakra-ui/react";
@@ -22,7 +22,7 @@ const DetailCountry = () => {
     <>
       {data?.map((country) => {
         return (
-          <>
+          <React.Fragment key={country.name.common}>
             <Heading>{country.name.common}</Heading>
             <Image src={country.flags.png} alt={country.name.common} />
             <Heading as="h2" fontSize="24">
@@ -31,11 +31,13 @@ const DetailCountry = () => {
             {country.borders?.map((border) => {
               return (
                 <Flex align={"center"} flexDir="row">
-                  <Link to={`/country/${border}`}>{border}</Link>
+                  <Link to={`/country/${border}`} key={border}>
+                    {border}
+                  </Link>
                 </Flex>
               );
             })}
-          </>
+          </React.Fragment>
         );
       })}
     </>

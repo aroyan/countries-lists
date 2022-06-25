@@ -1,27 +1,57 @@
 import { useEffect, useState } from "react";
-import { Flex, Center, Button } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
-import PreviewCard from "./PreviewCard";
+import { Flex, Center, Button, Input } from "@chakra-ui/react";
 import axios from "axios";
+import PreviewCard from "./PreviewCard";
+import FilterBox from "./FilterBox";
 
 const ListOfCountries = ({ cca3 }) => {
   const [data, setData] = useState(null);
   const [limit, setLimit] = useState(12);
+  const [apiUrl, setApiUrl] = useState("https://restcountries.com/v3.1/all");
+  const [searchQuery, setSearchQuery] = useState("");
+  console.log(encodeURI(searchQuery));
 
   useEffect(() => {
     (async () => {
-      const response = await axios.get("https://restcountries.com/v3.1/all");
+      const response = await axios.get(apiUrl);
       setData(response.data.slice(0, limit));
     })();
-  }, [limit]);
+  }, [limit, apiUrl]);
 
   return (
     <>
-      <Flex wrap="wrap" gap="1rem" align="center" justify="center">
+      <Flex justify="space-between">
+        <Input
+          type="search"
+          placeholder="Search for a country..."
+          maxW="480px"
+          value={searchQuery}
+          // onChange={useDebounce((e) => {
+          //   setSearchQuery(e.target.value);
+          //   if (setSearchQuery !== "") {
+          //     setApiUrl(
+          //       `https://restcountries.com/v3.1/name/${encodeURI(
+          //         searchQuery
+          //       )}?fullText=true`
+          //     );
+          //   }
+          // })}
+        />
+        <FilterBox setApiUrl={setApiUrl} />
+      </Flex>
+
+      <Flex
+        wrap="wrap"
+        gap="1rem"
+        align="center"
+        justify="space-between"
+        mt="12"
+      >
         {data?.map((item, index) => {
           return (
-            <Link to={`/country/${item.cca3}`}>
-              <PreviewCard key={index} item={item} />
+            <Link to={`/country/${item.cca3}`} key={index}>
+              <PreviewCard item={item} />
             </Link>
           );
         })}

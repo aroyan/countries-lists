@@ -9,6 +9,7 @@ function PreviewCard({ item }) {
       bg="#2B3743"
       borderRadius="6px"
       boxShadow="lg"
+      mb="18"
     >
       <Image
         src={`${item?.flags.svg}`}
@@ -16,6 +17,7 @@ function PreviewCard({ item }) {
         borderRadius="6px 6px 0 0"
         h="160px"
         w="264px"
+        fit="cover"
       />
       <Box ml="24px" mt="28px">
         <Heading as="h2" fontSize="18px" fontWeight="bold">

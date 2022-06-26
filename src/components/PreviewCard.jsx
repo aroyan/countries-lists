@@ -1,12 +1,13 @@
-import { Image, Text, Heading, Box } from "@chakra-ui/react";
+import { Image, Text, Heading, Box, useColorModeValue } from "@chakra-ui/react";
 
 function PreviewCard({ item }) {
+  const bgCard = useColorModeValue("#fff", "#2B3743");
   return (
     <Box
       as="article"
       h="21rem"
       w="16.5rem"
-      bg="#2B3743"
+      bg={bgCard}
       borderRadius="6px"
       boxShadow="lg"
       mb="18"

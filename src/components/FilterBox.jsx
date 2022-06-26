@@ -15,6 +15,7 @@ const FilterBox = ({ setApiUrl }) => {
           setApiUrl("https://restcountries.com/v3.1/all");
         }
       }}
+      boxShadow="sm"
     >
       {regions.map((region) => (
         <option

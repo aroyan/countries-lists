@@ -10,7 +10,6 @@ const ListOfCountries = ({ cca3 }) => {
   const [limit, setLimit] = useState(12);
   const [apiUrl, setApiUrl] = useState("https://restcountries.com/v3.1/all");
   const [searchQuery, setSearchQuery] = useState("");
-  console.log(encodeURI(searchQuery));
 
   useEffect(() => {
     (async () => {
@@ -21,22 +20,29 @@ const ListOfCountries = ({ cca3 }) => {
 
   return (
     <>
-      <Flex justify="space-between">
+      <Flex
+        justify={{ base: "start", md: "space-between" }}
+        flexWrap="wrap"
+        gap={{ base: "4", md: "0" }}
+      >
         <Input
           type="search"
           placeholder="Search for a country..."
           maxW="480px"
+          boxShadow="sm"
           value={searchQuery}
-          // onChange={useDebounce((e) => {
-          //   setSearchQuery(e.target.value);
-          //   if (setSearchQuery !== "") {
-          //     setApiUrl(
-          //       `https://restcountries.com/v3.1/name/${encodeURI(
-          //         searchQuery
-          //       )}?fullText=true`
-          //     );
-          //   }
-          // })}
+          onChange={(e) => {
+            setSearchQuery(e.target.value);
+            if (setSearchQuery === "") {
+              setApiUrl("https://restcountries.com/v3.1/all");
+            } else {
+              setApiUrl(
+                `https://restcountries.com/v3.1/name/${encodeURI(
+                  searchQuery
+                )}?fullText=true`
+              );
+            }
+          }}
         />
         <FilterBox setApiUrl={setApiUrl} />
       </Flex>
@@ -45,7 +51,7 @@ const ListOfCountries = ({ cca3 }) => {
         wrap="wrap"
         gap="1rem"
         align="center"
-        justify="space-between"
+        justify={{ base: "center", md: "space-between" }}
         mt="12"
       >
         {data?.map((item, index) => {

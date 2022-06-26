@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
+import { Image, Heading, Flex } from "@chakra-ui/react";
 import axios from "axios";
-import { Image } from "@chakra-ui/react";
-import { Heading } from "@chakra-ui/react";
-import { Flex } from "@chakra-ui/react";
 
 const DetailCountry = () => {
   let { cca3 } = useParams();

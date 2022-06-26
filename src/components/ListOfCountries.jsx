@@ -33,7 +33,7 @@ const ListOfCountries = ({ cca3 }) => {
           value={searchQuery}
           onChange={(e) => {
             setSearchQuery(e.target.value);
-            if (setSearchQuery === "") {
+            if (searchQuery === "") {
               setApiUrl("https://restcountries.com/v3.1/all");
             } else {
               setApiUrl(

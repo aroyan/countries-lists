@@ -28,10 +28,8 @@ const DetailCountry = () => {
             </Heading>
             {country.borders?.map((border) => {
               return (
-                <Flex align={"center"} flexDir="row">
-                  <Link to={`/country/${border}`} key={border}>
-                    {border}
-                  </Link>
+                <Flex align={"center"} flexDir="row" key={border}>
+                  <Link to={`/country/${border}`}>{border}</Link>
                 </Flex>
               );
             })}

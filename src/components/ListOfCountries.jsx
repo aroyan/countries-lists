@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useDebounce } from "../hooks/useDebounce";
 import { Link } from "react-router-dom";
 import { Flex, Center, Button, Input } from "@chakra-ui/react";
 import axios from "axios";
@@ -15,8 +16,17 @@ const ListOfCountries = ({ cca3 }) => {
     (async () => {
       const response = await axios.get(apiUrl);
       setData(response.data.slice(0, limit));
+      if (searchQuery === "") {
+        setApiUrl("https://restcountries.com/v3.1/all");
+      } else {
+        setApiUrl(
+          `https://restcountries.com/v3.1/name/${encodeURI(
+            searchQuery
+          )}?fullText=true`
+        );
+      }
     })();
-  }, [limit, apiUrl]);
+  }, [limit, apiUrl, searchQuery]);
 
   return (
     <>
@@ -30,19 +40,7 @@ const ListOfCountries = ({ cca3 }) => {
           placeholder="Search for a country..."
           maxW="480px"
           boxShadow="sm"
-          value={searchQuery}
-          onChange={(e) => {
-            setSearchQuery(e.target.value);
-            if (searchQuery === "") {
-              setApiUrl("https://restcountries.com/v3.1/all");
-            } else {
-              setApiUrl(
-                `https://restcountries.com/v3.1/name/${encodeURI(
-                  searchQuery
-                )}?fullText=true`
-              );
-            }
-          }}
+          onChange={useDebounce((e) => setSearchQuery(e.target.value), 700)}
         />
         <FilterBox setApiUrl={setApiUrl} />
       </Flex>

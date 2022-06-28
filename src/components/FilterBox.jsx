@@ -3,7 +3,7 @@ import { Select } from "@chakra-ui/react";
 const regions = ["africa", "americas", "asia", "europe", "oceania"];
 const apiUrl = "https://restcountries.com/v3.1/region/";
 
-const FilterBox = ({ setApiUrl }) => {
+const FilterBox = ({ setApiUrl, setOptionUrl }) => {
   return (
     <Select
       w="200px"
@@ -11,8 +11,10 @@ const FilterBox = ({ setApiUrl }) => {
       onChange={(e) => {
         if (e.target.value) {
           setApiUrl(e.target.value);
+          setOptionUrl(e.target.value);
         } else {
           setApiUrl("https://restcountries.com/v3.1/all");
+          setOptionUrl("");
         }
       }}
       boxShadow="sm"

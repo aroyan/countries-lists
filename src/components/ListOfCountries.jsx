@@ -8,25 +8,41 @@ import FilterBox from "./FilterBox";
 
 const ListOfCountries = ({ cca3 }) => {
   const [data, setData] = useState(null);
+  const [dataLength, setDataLength] = useState(null);
   const [limit, setLimit] = useState(12);
   const [apiUrl, setApiUrl] = useState("https://restcountries.com/v3.1/all");
   const [searchQuery, setSearchQuery] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [optionUrl, setOptionUrl] = useState("");
+  console.log(apiUrl, searchQuery);
 
   useEffect(() => {
     (async () => {
-      const response = await axios.get(apiUrl);
-      setData(response.data.slice(0, limit));
-      if (searchQuery === "") {
-        setApiUrl("https://restcountries.com/v3.1/all");
-      } else {
-        setApiUrl(
-          `https://restcountries.com/v3.1/name/${encodeURI(
-            searchQuery
-          )}?fullText=true`
+      try {
+        const response = await axios.get(apiUrl);
+        setErrorMessage("");
+        setDataLength(response.data.length);
+        setData(response.data.slice(0, limit));
+        if (searchQuery === "") {
+          optionUrl
+            ? setApiUrl(optionUrl)
+            : setApiUrl("https://restcountries.com/v3.1/all");
+        } else {
+          setApiUrl(
+            `https://restcountries.com/v3.1/name/${encodeURI(
+              searchQuery
+            )}?fullText=true`
+          );
+        }
+      } catch (error) {
+        setDataLength(0);
+        setErrorMessage(
+          `${searchQuery} is not found, plesase enter full name of country`
         );
+        if (searchQuery === "") setApiUrl("https://restcountries.com/v3.1/all");
       }
     })();
-  }, [limit, apiUrl, searchQuery]);
+  }, [limit, apiUrl, searchQuery, optionUrl]);
 
   return (
     <>
@@ -42,7 +58,7 @@ const ListOfCountries = ({ cca3 }) => {
           boxShadow="sm"
           onChange={useDebounce((e) => setSearchQuery(e.target.value), 700)}
         />
-        <FilterBox setApiUrl={setApiUrl} />
+        <FilterBox setApiUrl={setApiUrl} setOptionUrl={setOptionUrl} />
       </Flex>
 
       <Flex
@@ -51,19 +67,26 @@ const ListOfCountries = ({ cca3 }) => {
         align="center"
         justify={{ base: "center", md: "space-between" }}
         mt="12"
+        pb="16"
       >
-        {data?.map((item, index) => {
-          return (
-            <Link to={`/country/${item.cca3}`} key={index}>
-              <PreviewCard item={item} />
-            </Link>
-          );
-        })}
+        {errorMessage ? (
+          <p>{errorMessage}</p>
+        ) : (
+          data?.map((item, index) => {
+            return (
+              <Link to={`/country/${item.cca3}`} key={index}>
+                <PreviewCard item={item} />
+              </Link>
+            );
+          })
+        )}
       </Flex>
       <Center>
-        <Button onClick={() => setLimit(limit + 12)} my="10">
-          Load More
-        </Button>
+        {dataLength < 12 || dataLength === limit ? null : (
+          <Button onClick={() => setLimit(limit + 12)} my="10">
+            Load More
+          </Button>
+        )}
       </Center>
     </>
   );

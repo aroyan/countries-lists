@@ -14,7 +14,6 @@ const ListOfCountries = ({ cca3 }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [optionUrl, setOptionUrl] = useState("");
-  console.log(apiUrl, searchQuery);
 
   useEffect(() => {
     (async () => {

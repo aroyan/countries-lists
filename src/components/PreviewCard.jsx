@@ -21,7 +21,7 @@ function PreviewCard({ item }) {
         fit="cover"
       />
       <Box ml="24px" mt="28px">
-        <Heading as="h2" fontSize="18px" fontWeight="bold">
+        <Heading as="h2" fontSize="18px" fontWeight="bold" mr="4">
           {item?.name.common}
         </Heading>
         <Box mt="14px" fontSize="14px">

@@ -1,47 +1,23 @@
 import { useEffect, useState } from "react";
 import { useDebounce } from "../hooks/useDebounce";
 import { Link } from "react-router-dom";
-import { Flex, Center, Button, Input } from "@chakra-ui/react";
-import axios from "axios";
+import { Flex, Input } from "@chakra-ui/react";
 import PreviewCard from "./PreviewCard";
 import FilterBox from "./FilterBox";
+import {
+  useGetAllCountriesQuery,
+  useGetCountryByFullNameQuery,
+} from "../features/countries";
 
 const ListOfCountries = ({ cca3 }) => {
-  const [data, setData] = useState(null);
-  const [dataLength, setDataLength] = useState(null);
-  const [limit, setLimit] = useState(12);
   const [apiUrl, setApiUrl] = useState("https://restcountries.com/v3.1/all");
   const [searchQuery, setSearchQuery] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [optionUrl, setOptionUrl] = useState("");
 
-  useEffect(() => {
-    (async () => {
-      try {
-        const response = await axios.get(apiUrl);
-        setErrorMessage("");
-        setDataLength(response.data.length);
-        setData(response.data.slice(0, limit));
-        if (searchQuery === "") {
-          optionUrl
-            ? setApiUrl(optionUrl)
-            : setApiUrl("https://restcountries.com/v3.1/all");
-        } else {
-          setApiUrl(
-            `https://restcountries.com/v3.1/name/${encodeURI(
-              searchQuery
-            )}?fullText=true`
-          );
-        }
-      } catch (error) {
-        setDataLength(0);
-        setErrorMessage(
-          `${searchQuery} is not found, plesase enter full name of country`
-        );
-        if (searchQuery === "") setApiUrl("https://restcountries.com/v3.1/all");
-      }
-    })();
-  }, [limit, apiUrl, searchQuery, optionUrl]);
+  const { data } = useGetAllCountriesQuery();
+  const { searchData } = useGetCountryByFullNameQuery(searchQuery);
+  console.log(searchData);
 
   return (
     <>
@@ -60,6 +36,9 @@ const ListOfCountries = ({ cca3 }) => {
         <FilterBox setApiUrl={setApiUrl} setOptionUrl={setOptionUrl} />
       </Flex>
 
+      {searchData?.map((item, index) => {
+        return <p>{item.cca3}</p>;
+      })}
       <Flex
         wrap="wrap"
         gap="1rem"
@@ -80,13 +59,6 @@ const ListOfCountries = ({ cca3 }) => {
           })
         )}
       </Flex>
-      <Center>
-        {dataLength < 12 || dataLength === limit ? null : (
-          <Button onClick={() => setLimit(limit + 12)} my="10">
-            Load More
-          </Button>
-        )}
-      </Center>
     </>
   );
 };

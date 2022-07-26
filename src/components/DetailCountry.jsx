@@ -13,12 +13,14 @@ import {
 } from "@chakra-ui/react";
 import { ArrowBackIcon } from "@chakra-ui/icons";
 import axios from "axios";
+import { useColorMode } from "@chakra-ui/react";
 
 const DetailCountry = () => {
   let { cca3 } = useParams();
   const [data, setData] = useState(null);
   const navigate = useNavigate();
   const bg = useColorModeValue("#FAFAFA", "#202D36");
+  const bgBadge = useColorModeValue("#f0f0f0", "#2B3743");
 
   useEffect(() => {
     (async () => {
@@ -51,7 +53,7 @@ const DetailCountry = () => {
               p={{ base: "28px", md: "48px", lg: "0" }}
             >
               <GridItem mx="auto" my="auto">
-                <Box>
+                <Box boxShadow="2xl">
                   <Image src={country.flags.png} alt={country.name.common} />
                 </Box>
               </GridItem>
@@ -140,7 +142,7 @@ const DetailCountry = () => {
                         <Link to={`/country/${border}`} key={border}>
                           <Text
                             display="inline"
-                            bg="#2B3743"
+                            bg={bgBadge}
                             px="3"
                             py="1"
                             borderRadius="4px"

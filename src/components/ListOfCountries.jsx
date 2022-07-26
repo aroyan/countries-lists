@@ -12,7 +12,6 @@ const ListOfCountries = ({ cca3 }) => {
   const [limit, setLimit] = useState(12);
   const [apiUrl, setApiUrl] = useState("https://restcountries.com/v3.1/all");
   const [searchQuery, setSearchQuery] = useState("");
-  const [searchResult, setSearchResult] = useState(null);
   const [errorMessage, setErrorMessage] = useState("");
   const [optionUrl, setOptionUrl] = useState("");
 

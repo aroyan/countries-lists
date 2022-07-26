@@ -13,7 +13,6 @@ import {
 } from "@chakra-ui/react";
 import { ArrowBackIcon } from "@chakra-ui/icons";
 import axios from "axios";
-import { useColorMode } from "@chakra-ui/react";
 
 const DetailCountry = () => {
   let { cca3 } = useParams();

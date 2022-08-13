@@ -13,28 +13,33 @@ const ListOfCountries = ({ cca3 }) => {
   const apiUrl = "https://restcountries.com/v3.1/all";
 
   useEffect(() => {
-    if (localStorage.getItem("countriesData")) {
-      const result = JSON.parse(localStorage.getItem("countriesData"));
-      searchQuery
-        ? setData(
-            result.filter((x) =>
-              x.name.common.toLowerCase().includes(searchQuery.toLowerCase())
+    try {
+      if (localStorage.getItem("countriesData")) {
+        const result = JSON.parse(localStorage.getItem("countriesData"));
+        searchQuery
+          ? setData(
+              result.filter((x) =>
+                x.name.common.toLowerCase().includes(searchQuery.toLowerCase())
+              )
             )
-          )
-        : optionUrl
-        ? setData(
-            result.filter((x) =>
-              x.region.toLowerCase().includes(optionUrl.toLowerCase())
+          : optionUrl
+          ? setData(
+              result.filter((x) =>
+                x.region.toLowerCase().includes(optionUrl.toLowerCase())
+              )
             )
-          )
-        : setData(result);
-    } else
-      (async () => {
-        const res = await fetch(apiUrl);
-        const data = await res.json();
-        setData(data);
-        localStorage.setItem("countriesData", JSON.stringify(data));
-      })();
+          : setData(result);
+        setErrorMessage("");
+      } else
+        (async () => {
+          const res = await fetch(apiUrl);
+          const data = await res.json();
+          setData(data);
+          localStorage.setItem("countriesData", JSON.stringify(data));
+        })();
+    } catch (error) {
+      setErrorMessage(`Cannot get ${error}`);
+    }
   }, [searchQuery, optionUrl]);
 
   return (

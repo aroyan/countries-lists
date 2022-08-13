@@ -1,6 +1,6 @@
 {
-  "name": "first-pnpm",
-  "version": "0.1.0",
+  "name": "countries-list-app",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
     "@chakra-ui/icons": "^2.0.2",

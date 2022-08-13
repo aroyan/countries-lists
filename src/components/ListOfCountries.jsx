@@ -1,39 +1,47 @@
 import { useEffect, useState } from "react";
 import { useDebounce } from "../hooks/useDebounce";
 import { Link } from "react-router-dom";
-import { Flex, Input, Spinner } from "@chakra-ui/react";
+import { Flex, Center, Button, Input } from "@chakra-ui/react";
 import axios from "axios";
 import PreviewCard from "./PreviewCard";
 import FilterBox from "./FilterBox";
-import { filterByName } from "../utils/filterByName";
 
 const ListOfCountries = ({ cca3 }) => {
   const [data, setData] = useState(null);
+  const [dataLength, setDataLength] = useState(null);
+  const [limit, setLimit] = useState(12);
+  const [apiUrl, setApiUrl] = useState("https://restcountries.com/v3.1/all");
   const [searchQuery, setSearchQuery] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [optionUrl, setOptionUrl] = useState("");
 
-  const apiUrl = "https://restcountries.com/v3.1/all";
-  console.log(data);
-
   useEffect(() => {
-    if (localStorage.getItem("countriesData")) {
-      const result = JSON.parse(localStorage.getItem("countriesData"));
-      searchQuery
-        ? setData(
-            result.filter((x) =>
-              x.name.common.toLowerCase().includes(searchQuery.toLowerCase())
-            )
-          )
-        : setData(result);
-    } else
-      (async () => {
-        const res = await fetch(apiUrl);
-        const data = await res.json();
-        setData(data);
-        localStorage.setItem("countriesData", JSON.stringify(data));
-      })();
-  }, [searchQuery]);
+    (async () => {
+      try {
+        const response = await axios.get(apiUrl);
+        setErrorMessage("");
+        setDataLength(response.data.length);
+        setData(response.data.slice(0, limit));
+        if (searchQuery === "") {
+          optionUrl
+            ? setApiUrl(optionUrl)
+            : setApiUrl("https://restcountries.com/v3.1/all");
+        } else {
+          setApiUrl(
+            `https://restcountries.com/v3.1/name/${encodeURI(
+              searchQuery
+            )}?fullText=true`
+          );
+        }
+      } catch (error) {
+        setDataLength(0);
+        setErrorMessage(
+          `${searchQuery} is not found, plesase enter full name of country`
+        );
+        if (searchQuery === "") setApiUrl("https://restcountries.com/v3.1/all");
+      }
+    })();
+  }, [limit, apiUrl, searchQuery, optionUrl]);
 
   return (
     <>
@@ -49,7 +57,7 @@ const ListOfCountries = ({ cca3 }) => {
           boxShadow="sm"
           onChange={useDebounce((e) => setSearchQuery(e.target.value), 700)}
         />
-        <FilterBox setOptionUrl={setOptionUrl} />
+        <FilterBox setApiUrl={setApiUrl} setOptionUrl={setOptionUrl} />
       </Flex>
 
       <Flex
@@ -72,6 +80,13 @@ const ListOfCountries = ({ cca3 }) => {
           })
         )}
       </Flex>
+      <Center>
+        {dataLength < 12 || dataLength === limit ? null : (
+          <Button onClick={() => setLimit(limit + 12)} my="10">
+            Load More
+          </Button>
+        )}
+      </Center>
     </>
   );
 };

@@ -21,6 +21,12 @@ const ListOfCountries = ({ cca3 }) => {
               x.name.common.toLowerCase().includes(searchQuery.toLowerCase())
             )
           )
+        : optionUrl
+        ? setData(
+            result.filter((x) =>
+              x.region.toLowerCase().includes(optionUrl.toLowerCase())
+            )
+          )
         : setData(result);
     } else
       (async () => {
@@ -29,7 +35,7 @@ const ListOfCountries = ({ cca3 }) => {
         setData(data);
         localStorage.setItem("countriesData", JSON.stringify(data));
       })();
-  }, [searchQuery]);
+  }, [searchQuery, optionUrl]);
 
   return (
     <>

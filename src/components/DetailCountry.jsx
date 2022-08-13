@@ -48,8 +48,9 @@ const DetailCountry = () => {
               templateColumns={{ base: "1fr", lg: "repeat(2, 1fr)" }}
               alignContent="start"
               justifyContent="center"
-              height={{ lg: "calc(100vh - 120px)" }}
+              minH={{ lg: "calc(100vh - 120px)" }}
               p={{ base: "28px", md: "48px", lg: "0" }}
+              pb={{ lg: 4 }}
             >
               <GridItem mx="auto" my="auto">
                 <Box boxShadow="2xl">
@@ -130,30 +131,31 @@ const DetailCountry = () => {
                   </Flex>
                 </Flex>
                 <Box>
-                  <Flex flexWrap="wrap" align="center" gap="4">
-                    <Text display="inline" fontWeight="bold" p="4">
+                  <Flex flexWrap="wrap" align="center">
+                    <Text fontWeight="bold" p="4">
                       Border Countries:
                     </Text>
-                    {!country?.borders ? (
-                      <Text p="4">This country doesn&apos;t have border</Text>
-                    ) : (
-                      country.borders?.map((border) => {
-                        return (
-                          <Link to={`/country/${border}`} key={border}>
-                            <Text
-                              display="inline"
-                              bg={bgBadge}
-                              px="3"
-                              py="1"
-                              borderRadius="4px"
-                              mr="1"
-                            >
-                              {border}
-                            </Text>
-                          </Link>
-                        );
-                      })
-                    )}
+                    <Flex wrap="wrap" gap="3">
+                      {!country?.borders ? (
+                        <Text p="4">This country doesn&apos;t have border</Text>
+                      ) : (
+                        country.borders?.map((border) => {
+                          return (
+                            <Link to={`/country/${border}`} key={border}>
+                              <Text
+                                display="inline"
+                                bg={bgBadge}
+                                px="3"
+                                py="1"
+                                borderRadius="4px"
+                              >
+                                {border}
+                              </Text>
+                            </Link>
+                          );
+                        })
+                      )}
+                    </Flex>
                   </Flex>
                 </Box>
               </GridItem>

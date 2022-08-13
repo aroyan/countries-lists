@@ -130,29 +130,31 @@ const DetailCountry = () => {
                   </Flex>
                 </Flex>
                 <Box>
-                  <Text display="inline" fontWeight="bold" p="4">
-                    Border Countries:
-                  </Text>
-                  {!country?.borders ? (
-                    <Text p="4">This country doesn&apos;t have border</Text>
-                  ) : (
-                    country.borders?.map((border) => {
-                      return (
-                        <Link to={`/country/${border}`} key={border}>
-                          <Text
-                            display="inline"
-                            bg={bgBadge}
-                            px="3"
-                            py="1"
-                            borderRadius="4px"
-                            mr="1"
-                          >
-                            {border}
-                          </Text>
-                        </Link>
-                      );
-                    })
-                  )}
+                  <Flex flexWrap="wrap" align="center" gap="4">
+                    <Text display="inline" fontWeight="bold" p="4">
+                      Border Countries:
+                    </Text>
+                    {!country?.borders ? (
+                      <Text p="4">This country doesn&apos;t have border</Text>
+                    ) : (
+                      country.borders?.map((border) => {
+                        return (
+                          <Link to={`/country/${border}`} key={border}>
+                            <Text
+                              display="inline"
+                              bg={bgBadge}
+                              px="3"
+                              py="1"
+                              borderRadius="4px"
+                              mr="1"
+                            >
+                              {border}
+                            </Text>
+                          </Link>
+                        );
+                      })
+                    )}
+                  </Flex>
                 </Box>
               </GridItem>
             </Grid>

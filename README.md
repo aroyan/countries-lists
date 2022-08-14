@@ -1,8 +1,10 @@
 # Frontend Mentor - REST Countries API with color theme switcher solution
 
+![Home page preview](./preview/Home%20page.png)
+
 [![Netlify Status](https://api.netlify.com/api/v1/badges/cb933b06-eeb8-46be-aca5-97fb1e8e9fc3/deploy-status)](https://app.netlify.com/sites/countrieslist-frontendmentor/deploys)
 
-This is a solution to the [REST Countries API with color theme switcher challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/rest-countries-api-with-color-theme-switcher-5cacc469fec04111f7b848ca). Frontend Mentor challenges help you improve your coding skills by building realistic projects.
+This is a solution to the [REST Countries API with a color theme switcher challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/rest-countries-api-with-color-theme-switcher-5cacc469fec04111f7b848ca). Frontend Mentor challenges help you improve your coding skills by building real projects.
 
 ## Table of contents
 
@@ -33,6 +35,8 @@ Users should be able to:
 
 ### Screenshot
 
+![Detail page preview](./preview/Detail%20page.png)
+
 ### Links
 
 - Solution URL: [Frontendmentor Solution](https://www.frontendmentor.io/solutions/responsive-countries-lists-app-57AA57PEFE)
@@ -45,38 +49,24 @@ Users should be able to:
 - [React](https://reactjs.org/)
 - [Chakra UI](https://chakra-ui.com)
 - [Rest Countries API](https://restcountries.com/)
-- Flexbox
 
 ### What I learned
 
-Use this section to recap over some of your major learnings while working through this project. Writing these out and providing code samples of areas you want to highlight is a great way to reinforce your own knowledge.
-
-To see how you can add code snippets, see below:
-
-```html
-<h1>Some HTML code I'm proud of</h1>
-```
-
-```css
-.proud-of-this-css {
-  color: papayawhip;
-}
-```
-
-```js
-const proudOfThisFunc = () => {
-  console.log("🎉");
-};
-```
+In this challenge, I learned a lot. Especially working with forms like `search input`, `select input`, and I managed to use localStorage to avoid unnecessary requests to an API
 
 ### Continued development
 
-Use this section to outline areas that you want to continue focusing on in future projects. These could be concepts you're still not completely comfortable with or techniques you found useful that you want to refine and perfect.
+In the future, I want to improve this app by:
+
+- Input state is persisted after going back from the detail page
+- Search countries only in the Region that selected
+- Use localStorage to get to the detail page
 
 ### Useful resources
 
-- [Example resource 1](https://www.example.com) - This helped me for XYZ reason. I really liked this pattern and will use it going forward.
-- [Example resource 2](https://www.example.com) - This is an amazing article which helped me finally understand XYZ. I'd recommend it to anyone still learning this concept.
+- [React Docs](https://reactjs.org) - This is my go-to reference for React APIs
+- [Chakra UI Docs](https://chakra-ui.com/) - This is my go-to reference when styling with Chakra UI
+- [MDN Web Docs](https://developer.mozilla.org/en-US/) - This is my go-to reference for HTML, CSS, JavaScript
 
 ## Author
 
@@ -86,4 +76,8 @@ Use this section to outline areas that you want to continue focusing on in futur
 
 ## Acknowledgments
 
-This is where you can give a hat tip to anyone who helped you out on this project. Perhaps you worked in a team or got some inspiration from someone else's solution. This is the perfect place to give them some credit.
+Thanks to these communities that helped me when I get stuck :
+
+- [React](https://www.reddit.com/r/reactjs/)
+- [ReactJS Indonesia](https://t.me/react_idn)
+- [Codingfess](https://twitter.com/codingfess)
